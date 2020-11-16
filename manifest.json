@@ -1,0 +1,7 @@
+{
+  "name": "Invite Inspector",
+  "description": "Fetches information on a Discord server invite.",
+  "author": "lav#5778",
+  "version": "1.0.0",
+  "license": "MIT"
+}
