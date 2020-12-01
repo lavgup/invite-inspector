@@ -1,13 +1,19 @@
+const i18n = require('./i18n');
 const { open } = require('powercord/modal');
 const { Plugin } = require('powercord/entities');
-const { React, getModule } = require('powercord/webpack');
 const { inject, uninject } = require('powercord/injector');
 const InspectorModal = require('./components/InspectorModal');
+const {
+    React,
+    getModule,
+    i18n: { Messages }
+} = require('powercord/webpack');
 
 const INVITE_REGEX = /discord((?:app)?\.com\/invite|\.gg)\/[a-zA-Z0-9].{2,32}/;
 
 class InviteInspector extends Plugin {
     startPlugin() {
+        powercord.api.i18n.loadAllStrings(i18n);
         return this.injectContextMenu();
     }
 
@@ -23,7 +29,7 @@ class InviteInspector extends Plugin {
         );
         const Default = MessageContextMenu.default;
 
-        inject('invite-inspector', MessageContextMenu, 'default', ([{message}], res) => {
+        inject('invite-inspector', MessageContextMenu, 'default', ([{ message }], res) => {
             if (!message || !message.codedLinks || !message.codedLinks.length) return res;
 
             let code;
@@ -38,30 +44,30 @@ class InviteInspector extends Plugin {
             if (code) {
                 res.props.children.push(
                     React.createElement(MenuItem, {
-                        name: 'Inspect Invite',
+                        name: Messages.INVITE_INSPECT,
                         separate: true,
-                        id: "inspect-invite",
-                        label: 'Inspect Invite',
+                        id: 'inspect-invite',
+                        label: Messages.INVITE_INSPECT,
                         action: async () => {
                             const { resolveInvite } = await getModule(['resolveInvite']);
                             const data = await resolveInvite(code);
 
                             if (!data.invite) {
                                 return powercord.api.notices.sendToast('InvalidInvite', {
-                                    header: 'Invalid invite',
-                                    content: "That wasn't a valid invite!",
+                                    header: Messages.II_INVALID_INVITE,
+                                    content: Messages.II_INVALID_INVITE_DESC,
                                     type: 'info',
                                     timeout: 10e3,
                                     buttons: [{
-                                        text: 'Got It',
+                                        text: Messages.GOT_IT,
                                         color: 'red',
                                         size: 'medium',
                                         look: 'outlined',
-                                    }],
+                                    }]
                                 });
                             }
 
-                            return open(() => React.createElement(InspectorModal, data))
+                            return open(() => React.createElement(InspectorModal, data));
                         },
                     })
                 );

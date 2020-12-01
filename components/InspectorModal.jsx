@@ -1,6 +1,11 @@
 const { Text, Flex } = require('powercord/components');
 const { Modal } = require('powercord/components/modal');
-const { React, getModule, getModuleByDisplayName } = require('powercord/webpack');
+const {
+    React,
+    getModule,
+    getModuleByDisplayName,
+    i18n: { Messages }
+} = require('powercord/webpack');
 
 const margins = getModule(['marginTop20'], false);
 const AsyncComponent = require('powercord/components/AsyncComponent');
@@ -46,7 +51,7 @@ class InspectorModal extends React.Component {
     render() {
         let inviter = '';
         if (this.props.invite.inviter) {
-            inviter = <Section title={'Inviter'}>
+            inviter = <Section title={Messages.INVITER}>
                 {this.props.invite.inviter.username}#{this.props.invite.inviter.discriminator} (ID: {this.props.invite.inviter.id})
             </Section>
         }
@@ -55,7 +60,7 @@ class InspectorModal extends React.Component {
 
         let description = '';
         if (guildDescription) {
-            description = <Section title={'Guild Description'}>
+            description = <Section title={Messages.GUILD_DESC}>
                 {guildDescription}
             </Section>
         }
@@ -69,22 +74,22 @@ class InspectorModal extends React.Component {
                         </Modal.Header>
 
                         <Modal.Content>
-                            <Section title={'Code'}>
-                            {this.props.code}
+                            <Section title={Messages.CODE}>
+                                {this.props.code}
                             </Section>
 
-                            <Section title={'Guild'}>
-                            {this.props.invite.guild.name} (ID: {this.props.invite.guild.id})
+                            <Section title={Messages.GUILD}>
+                                {this.props.invite.guild.name} (ID: {this.props.invite.guild.id})
                             </Section>
 
                             {description}
 
-                            <Section title={'Member Count'}>
-                            {this.props.invite.approximate_member_count}
+                            <Section title={Messages.MEMBER_COUNT}>
+                                {this.props.invite.approximate_member_count}
                             </Section>
 
-                            <Section title={'Channel'}>
-                            #{this.props.invite.channel.name} (ID: {this.props.invite.channel.id})
+                            <Section title={Messages.CHANNEL}>
+                                #{this.props.invite.channel.name} (ID: {this.props.invite.channel.id})
                             </Section>
 
                             {inviter}

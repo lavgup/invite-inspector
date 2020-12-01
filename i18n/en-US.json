@@ -1,0 +1,13 @@
+{
+  "INVITE_INSPECT": "Inspect Invite",
+  "II_INVALID_INVITE": "Invalid invite",
+  "II_INVALID_INVITE_DESC": "That wasn't a valid invite!",
+  "GOT_IT": "Got it",
+  "INVITE_INSPECTOR": "Invite Inspector",
+  "CODE": "Code",
+  "GUILD": "Guild",
+  "GUILD_DESC": "Guild Description",
+  "MEMBER_COUNT": "Member Count",
+  "CHANNEL": "Channel",
+  "INVITER": "Inviter"
+}
